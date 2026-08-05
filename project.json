@@ -1,1 +1,107 @@
-
+[
+  {
+    "id": 1,
+    "title": "Blink",
+    "description": "Welcome to hardware coding! In this project, we will test the connection to your ESP32 by writing a simple loop to turn the onboard blue LED on and off every second.",
+    "components": "ESP32 Development Board, Micro USB Cable",
+    "bin_path": "./bins/project1_blink.bin"
+  },
+  {
+    "id": 2,
+    "title": "Traffic Light Simulator",
+    "description": "Learn about digital outputs and timing. We will wire up Red, Yellow, and Green LEDs to recreate a real-world traffic light sequence.",
+    "components": "ESP32, Breadboard, 1 Red LED, 1 Yellow LED, 1 Green LED, 3 220R Resistors, Dupont Wires",
+    "bin_path": "./bins/project2_traffic.bin"
+  },
+  {
+    "id": 3,
+    "title": "RGB Color Mixer",
+    "description": "Discover Pulse Width Modulation (PWM). By rapidly pulsing electricity, you will mix red, green, and blue light to create almost any color imaginable.",
+    "components": "ESP32, Breadboard, 1 RGB LED, 3 220R Resistors, Dupont Wires",
+    "bin_path": "./bins/project3_rgb.bin"
+  },
+  {
+    "id": 4,
+    "title": "Button State Controller",
+    "description": "Introduce digital inputs. You will program the ESP32 to 'listen' for a button press. When the button is held down, an LED will light up.",
+    "components": "ESP32, Breadboard, 1 Button Switch, 1 LED, 1 220R Resistor, 1 10K Resistor, Dupont Wires",
+    "bin_path": "./bins/project4_button.bin"
+  },
+  {
+    "id": 5,
+    "title": "Passive Buzzer Alarm",
+    "description": "Let's make some noise! You will use a button switch to trigger a loud, continuous alarm sound from the passive buzzer.",
+    "components": "ESP32, Breadboard, 1 Passive Buzzer, 1 Button Switch, 1 10K Resistor, Dupont Wires",
+    "bin_path": "./bins/project5_buzzer.bin"
+  },
+  {
+    "id": 6,
+    "title": "Melody Player",
+    "description": "Code can make music. Using specific frequencies, you will program the passive buzzer to play a recognizable melody.",
+    "components": "ESP32, Breadboard, 1 Passive Buzzer, Dupont Wires",
+    "bin_path": "./bins/project6_melody.bin"
+  },
+  {
+    "id": 7,
+    "title": "Analog Reader",
+    "description": "Learn to read variable data. You will turn the 10K potentiometer (a twistable knob) to dim and brighten an LED smoothly.",
+    "components": "ESP32, Breadboard, 10K Potentiometer, 1 LED, 1 220R Resistor, Dupont Wires",
+    "bin_path": "./bins/project7_analog.bin"
+  },
+  {
+    "id": 8,
+    "title": "Smart Night Light",
+    "description": "Build a light-sensitive circuit. Using the photosensitive resistor, the ESP32 will detect when the room gets dark and automatically turn on a Yellow LED.",
+    "components": "ESP32, Breadboard, Photosensitive Resistor, 1 Yellow LED, 1 10K Resistor, 1 220R Resistor, Dupont Wires",
+    "bin_path": "./bins/project8_nightlight.bin"
+  },
+  {
+    "id": 9,
+    "title": "Motion Intruder Alarm",
+    "description": "Security activated! The HC-SR501 PIR sensor detects human body heat. When motion is detected, a Red LED will flash and the buzzer will sound.",
+    "components": "ESP32, Breadboard, HC-SR501 PIR Motion Sensor, 1 Red LED, 1 Passive Buzzer, 1 220R Resistor, Dupont Wires",
+    "bin_path": "./bins/project9_motion.bin"
+  },
+  {
+    "id": 10,
+    "title": "Obstacle Detector",
+    "description": "Using infrared light, the Obstacle Avoidance Module will act like a digital eye, illuminating a Green LED only when an object blocks its path.",
+    "components": "ESP32, Breadboard, Obstacle Avoidance Module, 1 Green LED, 1 220R Resistor, Dupont Wires",
+    "bin_path": "./bins/project10_obstacle.bin"
+  },
+  {
+    "id": 11,
+    "title": "Climate Monitor Indicator",
+    "description": "Read environmental data. The DHT11 sensor will read room temperature. If it is hot, the RGB LED turns Red; if it is comfortable, it turns Green.",
+    "components": "ESP32, Breadboard, DHT11 Temp/Humidity Sensor, 1 RGB LED, 3 220R Resistors, Dupont Wires",
+    "bin_path": "./bins/project11_climate.bin"
+  },
+  {
+    "id": 12,
+    "title": "High-Voltage Controller",
+    "description": "Learn how microcontrollers control large appliances. You will use a button switch to toggle the Active 5V 2-Channel Relay with a satisfying 'click'.",
+    "components": "ESP32, Breadboard, 5V 2-Channel Relay, 1 Button Switch, 1 10K Resistor, Dupont Wires",
+    "bin_path": "./bins/project12_relay.bin"
+  },
+  {
+    "id": 13,
+    "title": "OLED Hello World",
+    "description": "Screens make everything better! You will use the I2C protocol to print 'Hello World' and draw simple shapes on the 0.96 inch OLED display.",
+    "components": "ESP32, Breadboard, 0.96 in OLED Display, Dupont Wires",
+    "bin_path": "./bins/project13_oled.bin"
+  },
+  {
+    "id": 14,
+    "title": "Digital Weather Station",
+    "description": "Combine components for a complex project. The ESP32 will read live temperature and humidity from the DHT11 and print the data cleanly on the OLED screen.",
+    "components": "ESP32, Breadboard, DHT11 Temp/Humidity Sensor, 0.96 in OLED Display, Dupont Wires",
+    "bin_path": "./bins/project14_weather.bin"
+  },
+  {
+    "id": 15,
+    "title": "Ultimate Security System",
+    "description": "The master project. Combine the PIR sensor, buzzer, relay, and OLED. When motion is detected, the relay activates, the alarm sounds, and the OLED displays an 'INTRUDER ALERT' message.",
+    "components": "ESP32, Breadboard, PIR Sensor, Passive Buzzer, Relay, OLED Display, Dupont Wires",
+    "bin_path": "./bins/project15_ultimate.bin"
+  }
+]
