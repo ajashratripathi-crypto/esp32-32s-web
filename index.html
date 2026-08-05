@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESP32 Starter Kit - Learn Electronics!</title>
+    <script
+        type="module"
+        src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module">
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            color: #eee;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: rgba(255,255,255,0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, #00d2ff, #7b2ff7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: #aaa;
+            font-size: 1.1rem;
+        }
+
+        .emoji-banner {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        /* REQUIREMENTS BANNER */
+        .requirements {
+            background: rgba(255, 193, 7, 0.15);
+            border: 1px solid rgba(255, 193, 7, 0.4);
+            border-radius: 12px;
+            padding: 15px 25px;
+            margin: 20px auto;
+            max-width: 700px;
+            text-align: center;
+        }
+
+        .requirements h3 {
+            color: #ffc107;
+            margin-bottom: 8px;
+        }
+
+        .requirements p {
+            color: #ddd;
+            font-size: 0.95rem;
+        }
+
+        /* STEPS SECTION */
+        .steps-section {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .steps-section h2 {
+            text-align: center;
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            color: #00d2ff;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .step-card {
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .step-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(0, 210, 255, 0.4);
+        }
+
+        .step-number {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #00d2ff, #7b2ff7);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin: 0 auto 15px;
+        }
+
+        .step-card h3 {
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .step-card p {
+            color: #aaa;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* PROJECTS SECTION */
+        .projects-section {
+            max-width: 1100px;
+            margin: 0 auto 60px;
+            padding: 0 20px;
+        }
+
+        .projects-section h2 {
+            text-align: center;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: #00d2ff;
+        }
+
+        .projects-section .subtitle {
+            text-align: center;
+            color: #aaa;
+            margin-bottom: 35px;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .project-card {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 30px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--accent, linear-gradient(90deg, #00d2ff, #7b2ff7));
+        }
+
+        .project-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .project-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .project-card h3 {
+            font-size: 1.2rem;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .difficulty {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        .beginner { background: rgba(0, 200, 100, 0.2); color: #00c864; }
+        .intermediate { background: rgba(255, 165, 0, 0.2); color: #ffa500; }
+        .advanced { background: rgba(255, 50, 50, 0.2); color: #ff5555; }
+
+        .project-card p {
+            color: #aaa;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .components-used {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 20px;
+        }
+
+        .component-tag {
+            background: rgba(123, 47, 247, 0.2);
+            border: 1px solid rgba(123, 47, 247, 0.3);
+            color: #b388ff;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.75rem;
+        }
+
+        /* INSTALL BUTTON STYLES */
+        esp-web-install-button {
+            display: block;
+            margin-top: 10px;
+        }
+
+        esp-web-install-button::part(button) {
+            background: linear-gradient(135deg, #00d2ff, #7b2ff7);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            transition: opacity 0.2s;
+        }
+
+        esp-web-install-button::part(button):hover {
+            opacity: 0.85;
+        }
+
+        /* WHAT YOU'LL LEARN */
+        .learn-section {
+            max-width: 900px;
+            margin: 0 auto 60px;
+            padding: 0 20px;
+        }
+
+        .learn-section h2 {
+            text-align: center;
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            color: #00d2ff;
+        }
+
+        .learn-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .learn-item {
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .learn-item .icon { font-size: 2rem; margin-bottom: 10px; }
+        .learn-item h4 { color: #fff; margin-bottom: 5px; }
+        .learn-item p { color: #888; font-size: 0.85rem; }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #555;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        footer a { color: #7b2ff7; text-decoration: none; }
+
+        /* MODAL */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: #1a1a2e;
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .modal h3 { font-size: 1.5rem; margin-bottom: 15px; color: #fff; }
+        .modal p { color: #aaa; margin-bottom: 25px; line-height: 1.6; }
+
+        .modal-close {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #fff;
+            padding: 10px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="emoji-banner">🎁⚡🤖</div>
+        <h1>ESP32 Starter Kit</h1>
+        <p>Your journey into electronics & coding starts here!</p>
+
+        <div class="requirements">
+            <h3>✅ What You Need</h3>
+            <p>
+                📦 Your ESP32 Kit &nbsp;|&nbsp;
+                🔌 Micro-USB Cable &nbsp;|&nbsp;
+                🌐 Google Chrome Browser &nbsp;|&nbsp;
+                💻 Chromebook works perfectly!
+            </p>
+        </div>
+    </header>
+
+    <!-- HOW TO START -->
+    <section class="steps-section">
+        <h2>🚀 How To Get Started</h2>
+        <div class="steps-grid">
+            <div class="step-card">
+                <div class="step-number">1</div>
+                <h3>Plug It In</h3>
+                <p>Connect your ESP32 board to your Chromebook using the Micro-USB cable included in your kit.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">2</div>
+                <h3>Pick a Project</h3>
+                <p>Choose one of the projects below. Start with "Blink" - it's the classic first project for everyone!</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">3</div>
+                <h3>Click Install</h3>
+                <p>Hit the Install button, select your ESP32 from the popup, and the code uploads automatically!</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">4</div>
+                <h3>Watch & Learn</h3>
+                <p>See your project come to life! Read the explanation to understand how it works.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section class="projects-section">
+        <h2>🛠️ Projects</h2>
+        <p class="subtitle">Flash pre-built firmware directly from your browser — no software needed!</p>
+
+        <div class="projects-grid">
+
+            <!-- PROJECT 1: BLINK -->
+            <div class="project-card" style="--accent: linear-gradient(90deg, #ff6b6b, #feca57)">
+                <div class="project-icon">💡</div>
+                <h3>Project 1: Blink</h3>
+                <span class="difficulty beginner">⭐ Beginner</span>
+                <p>
+                    The classic "Hello World" of electronics! Make the built-in LED on your ESP32 blink on and off.
+                    You'll learn about digital outputs and how code controls hardware.
+                </p>
+                <div class="components-used">
+                    <span class="component-tag">ESP32 Board</span>
+                    <span class="component-tag">Built-in LED</span>
+                </div>
+                <esp-web-install-button manifest="firmware/blink/manifest.json">
+                    <span slot="unsupported">⚠️ Use Chrome Browser</span>
+                    <span slot="not-allowed">🔒 HTTPS Required</span>
+                </esp-web-install-button>
+            </div>
+
+            <!-- PROJECT 2: BLINK WITH EXTERNAL LED -->
+            <div class="project-card" style="--accent: linear-gradient(90deg, #f7971e, #ffd200)">
+                <div class="project-icon">🚦</div>
+                <h3>Project 2: Traffic Light</h3>
+                <span class="difficulty beginner">⭐ Beginner</span>
+                <p>
+                    Build a mini traffic light using red, yellow, and green LEDs!
+                    Learn about resistors, breadboard wiring, and controlling multiple outputs.
+                </p>
+                <div class="components-used">
+                    <span class="component-tag">ESP32</span>
+                    <span class="component-tag">Red LED</span>
+                    <span class="component-tag">Yellow LED</span>
+                    <span class="component-tag">Green LED</span>
+                    <span class="component-tag">Resistors</span>
+                    <span class="component-tag">Breadboard</span>
+                </div>
+                <esp-web-install-button manifest="firmware/traffic_light/manifest.json">
+                    <span slot="unsupported">⚠️ Use Chrome Browser</span>
+                </esp-web-install-button>
+            </div>
+
+            <!-- PROJECT 3: DHT11 TEMP SENSOR -->
+            <div class="project-card" style="--accent: linear-gradient(90deg, #11998e, #38ef7d)">
+                <div class="project-icon">🌡️</div>
+                <h3>Project 3: Weather Station</h3>
+                <span class="difficulty beginner">⭐ Beginner</span>
+                <p>
+                    Read real temperature and humidity from the DHT11 sensor and display it on the OLED screen.
+                    Your own mini weather station!
+                </p>
+                <div class="components-used">
+                    <span class="component-tag">ESP32</span>
+                    <span class="component-tag">DHT11 Sensor</span>
+                    <span class="component-tag">OLED Display</span>
+                    <span class="component-tag">Jumper Wires</span>
+                </div>
+                <esp-web-install-button manifest="firmware/weather_station/manifest.json">
+                    <span slot="unsupported">⚠️ Use Chrome Browser</span>
+                </esp-web-install-button>
+            </div>
+
+            <!-- PROJECT 4: PIR MOTION -->
+            <div class="project-card" style="--accent: linear-gradient(90deg, #8e2de2, #4a00e0)">
+                <div class="project-icon">🚨</div>
+                <h3>Project 4: Motion Alarm</h3>
+                <span class="difficulty intermediate">⭐⭐ Intermediate</span>
+                <p>
+                    Use the PIR sensor to detect motion and trigger an LED alarm!
+                    Learn about digital inputs and how sensors communicate with microcontrollers.
+                </p>
+                <div class="components-used">
+                    <span class="component-tag">ESP32</span>
+                    <span class="component-tag">PIR Sensor</span>
+                    <span class="component-tag">Red LED</span>
+                    <span class="component-tag">Breadboard</span>
+                </div>
+                <esp-web-install-button manifest="firmware/motion_alarm/manifest.json">
+                    <span slot="unsupported">⚠️ Use Chrome Browser</span>
+                </esp-web-install-button>
+            </div>
+
+            <!-- PROJECT 5: LIGHT SENSOR -->
+            <div class="project-card" style="--accent: linear-gradient(90deg, #f953c6, #b91d73)">
+                <div class="project-icon">☀️</div>
+                <h3>Project 5: Light Meter</h3>
+                <span class="difficulty intermediate">⭐⭐ Intermediate</span>
+                <p>
+                    The photosensitive resistor detects light levels and displays them on the OLED.
+                    Learn about analog inputs and how to read sensor data!
+                </p>
+                <div class="components-used">
+                    <span class="component-tag">ESP32</span>
+                    <span class="component-tag">Photo Resistor</span>
+                    <span class="component-tag">OLED Display</span>
+                    <span class="component-tag">10K Resistor</span>
+                </div>
+                <esp-web-install-button manifest="firmware/light_meter/manifest.json">
+                    <span slot="unsupported">⚠️ Use Chrome Browser</span>
+                </esp-web-install-button>
+            </div>
+
+            <!-- PROJECT 6: ALL TOGETHER -->
+            <div class="project-card" style="--accent: linear-gradient(90deg, #00d2ff, #7b2ff7)">
+                <div class="project-icon">🤖</div>
+                <h3>Project 6: Smart Dashboard</h3>
+                <span class="difficulty advanced">⭐⭐⭐ Advanced</span>
+                <p>
+                    The ultimate project! Combines ALL sensors — shows temperature, humidity, light level,
+                    and motion detection all on the OLED display. Also serves a WiFi webpage!
+                </p>
+                <div class="components-used">
+                    <span class="component-tag">ESP32</span>
+                    <span class="component-tag">DHT11</span>
+                    <span class="component-tag">PIR Sensor</span>
+                    <span class="component-tag">Photo Resistor</span>
+                    <span class="component-tag">OLED Display</span>
+                    <span class="component-tag">WiFi</span>
+                </div>
+                <esp-web-install-button manifest="firmware/smart_dashboard/manifest.json">
+                    <span slot="unsupported">⚠️ Use Chrome Browser</span>
+                </esp-web-install-button>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- WHAT YOU'LL LEARN -->
+    <section class="learn-section">
+        <h2>📚 What You'll Learn</h2>
+        <div class="learn-grid">
+            <div class="learn-item">
+                <div class="icon">⚡</div>
+                <h4>Electronics Basics</h4>
+                <p>Circuits, resistors, LEDs, and how components work together</p>
+            </div>
+            <div class="learn-item">
+                <div class="icon">💻</div>
+                <h4>Programming</h4>
+                <p>C++ code that runs on microcontrollers</p>
+            </div>
+            <div class="learn-item">
+                <div class="icon">📡</div>
+                <h4>IoT Concepts</h4>
+                <p>WiFi, sensors, and connected devices</p>
+            </div>
+            <div class="learn-item">
+                <div class="icon">🔧</div>
+                <h4>Problem Solving</h4>
+                <p>Debug issues and experiment with code</p>
+            </div>
+            <div class="learn-item">
+                <div class="icon">🌐</div>
+                <h4>Web Integration</h4>
+                <p>Serve webpages from your ESP32!</p>
+            </div>
+            <div class="learn-item">
+                <div class="icon">🏗️</div>
+                <h4>Making Things</h4>
+                <p>Turn ideas into real working projects</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>Made with ❤️ | 
+            <a href="https://github.com/YOUR_USERNAME/esp32-starter-kit" target="_blank">View on GitHub</a> | 
+            Powered by <a href="https://esphome.github.io/esp-web-tools/" target="_blank">ESP Web Tools</a>
+        </p>
+        <p style="margin-top: 8px; font-size: 0.85rem;">Works on Chromebook • No software installation needed</p>
+    </footer>
+
+</body>
+</html>
